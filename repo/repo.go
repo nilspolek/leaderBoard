@@ -10,6 +10,7 @@ type Repo interface {
 	GetTeam(id uuid.UUID) (Team, error)
 	AddUser(user User) error
 	GetUser(id uuid.UUID) (User, error)
+	IsUserValid(user User) (bool, error)
 }
 
 type Score struct {

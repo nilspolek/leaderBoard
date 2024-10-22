@@ -57,6 +57,16 @@ func (s SQLite) AddUser(user repo.User) error {
 	return err
 }
 
+func (s SQLite) IsUserValid(user repo.User) (bool, error) {
+	var (
+		out bool
+	)
+	err := s.db.QueryRow("SELECT EXISTS(SELECT 1 FROM users WHERE name = ? AND password = ?)", user.Name, user.Password).Scan(&out)
+	if err != nil {
+		return false, err
+	}
+	return out, err
+}
 func (s SQLite) GetUser(id uuid.UUID) (repo.User, error) {
 	var (
 		out repo.User
@@ -94,6 +104,7 @@ func (s SQLite) GetTeam(id uuid.UUID) (repo.Team, error) {
 		out repo.Team
 	)
 	err := s.db.QueryRow("SELECT name FROM teams WHERE id = ?", id).Scan(&out.Name)
+	out.Uuid = id
 	return out, err
 }
 

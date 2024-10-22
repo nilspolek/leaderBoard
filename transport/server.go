@@ -38,6 +38,10 @@ func (s *Server) SetupRoutes() {
 	}
 	s.AddRoute("GET", "/user/{id}", endpoints.GetUser)
 	s.AddRoute("POST", "/user", endpoints.CreateUser)
+	s.AddRoute("GET", "/game/{id}", endpoints.GetGameScore)
+	s.AddRoute("POST", "/game", endpoints.CreateGame)
+	s.AddRoute("GET", "/team/{id}", endpoints.GetTeam)
+	s.AddRoute("POST", "/team", endpoints.CreateTeam)
 }
 
 func (s *Server) AddRoute(method, path string, handler http.HandlerFunc) {
